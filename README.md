@@ -79,6 +79,7 @@ The image endpoints return status updates and final image URLs when processing i
 All examples include basic error handling for common issues like network errors or invalid responses.
 
 ## Support
-For additional support or questions, please refer to the KidJig API documentation .
+For additional support or questions, please refer to the [KidJig API documentation](https://kidjig.gitbook.io/kidjig-docs/getting-started/quickstart).
+
 
 
