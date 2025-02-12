@@ -1,6 +1,6 @@
 import httpx
 
-# base_url =  "URL_ADDRESS.kidjig.com/provider/api/v1/{provider}/chat/completions"
+# base_url =  "https://api.kidjig.com/provider/api/v1/{provider}/chat/completions"
 
 base_url = "https://api.kidjig.com/provider/api/v1/openai/chat/completions"
 headers = {
@@ -17,19 +17,7 @@ data = {
 try:
     response = httpx.post(base_url, headers=headers, json=data)
     response_data = response.json()
-
-    # Extract specific information from the response
-    success = response_data["success"]
-    message = response_data["message"]
-    ai_response = response_data["data"]["response"]
-    usage = response_data["data"]["usage"]
-    cost = response_data["data"]["cost"]
-
-    print(f"Success: {success}")
-    print(f"Message: {message}")
-    print(f"AI Response: {ai_response}")
-    print(f"Token Usage: {usage}")
-    print(f"Cost: {cost}")
+    print(response_data)
 
 except Exception as e:
     print(f"An error occurred: {str(e)}")

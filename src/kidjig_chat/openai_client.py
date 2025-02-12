@@ -1,11 +1,10 @@
 from openai import OpenAI
 
 
-# base_url =  "URL_ADDRESS.kidjig.com/provider/api/v1/{provider}
+# base_url =  "https://api.kidjig.com/provider/api/v1/{provider}
 client = OpenAI(
-    base_url="https://apivultra.kidjig.com/provider/api/v1/mistralai",
-    api_key="kkdjg_6zxsjpGvUdlqciEd5pTX6sLXvoUHKeu9VbfAQjqDI",
-    # default_headers={"x-api-key": "kdjg_6zxsjpGvUdlqciEd5pTX6sLXvoUHKeu9VbfAQjqDI"}, #Optional
+    base_url="https://api.kidjig.com/provider/api/v1/{provider}",
+    api_key="your_api_key",  # Replace with your KidJig API key
 )
 
 

@@ -1,13 +1,18 @@
-# KidJig API Python Examples
+# KidJig API JavaScript Examples
 
-This repository contains Python examples demonstrating how to use the KidJig API for both chat and image generation services.
+This repository provides comprehensive JavaScript code examples and implementations for integrating with the KidJig API platform. It includes detailed examples for both the Chat Completion API and Image Generation API services, helping developers quickly get started with KidJig's powerful AI capabilities.
+
+Key Features:
+- Chat Completion API integration examples
+- Image Generation API implementation samples
+
 
 ## Prerequisites
 
 - Python 3.6 or higher
 - `httpx` library
 - KidJig API key (get your key at [KidJig Playground](https://platform.kidjig.com/api-keys))
-- For Models you can see [KidJig Models](https://kidjig.gitbook.io/kidjig-docs/api-overview/text-models-llm/models)
+- Familiarity with the available models (see [KidJig Models Documentation](https://kidjig.gitbook.io/kidjig-docs/api-overview/text-models-llm/models))
 
 ## Installation
 
@@ -17,11 +22,14 @@ pip install httpx
 ```
 
 ## Usage
-### Chat Completion
-The chat example demonstrates how to use KidJig's chat completion API:
 
-KidJig supports two methods for chat completion:
-1. Direct API Call
+### Chat Completion API Integration
+
+The KidJig Chat Completion API provides powerful natural language processing capabilities. This section demonstrates how to integrate and utilize these features in your applications.
+
+KidJig offers two flexible integration methods for chat completion:
+
+1. Direct REST API Integration
 
 ```python
 
@@ -45,7 +53,7 @@ response = httpx.post(url, headers=headers, json=data)
 print(response.json())
 ```
 
-2. OpenAI Client
+2. OpenAI-Compatible Client Integration
 
 ```python
 from openai import OpenAI
@@ -127,4 +135,20 @@ All examples include basic error handling for common issues like network errors 
 For additional support or questions, please refer to the [KidJig API documentation](https://kidjig.gitbook.io/kidjig-docs/getting-started/quickstart).
 
 
+### Community
+Join our vibrant developer community:
+- Discord: [Join KidJig Community](https://discord.gg/ptXkdZ72UW)
+
+
+### Contact Us
+Need direct assistance?
+- Email Support: For direct inquiries, you can reach out to our founder at [founder@kidjig.com](mailto:founder@kidjig.com). We aim to respond to all emails promptly.
+- Platform: [KidJig Platform](https://platform.kidjig.com)
+
+Feel free to:
+- Ask questions
+- Report issues
+- Request features
+- Share your feedback
+- Get technical support
 
