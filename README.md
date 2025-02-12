@@ -7,6 +7,7 @@ This repository contains Python examples demonstrating how to use the KidJig API
 - Python 3.6 or higher
 - `httpx` library
 - KidJig API key (get your key at [KidJig Playground](https://platform.kidjig.com/api-keys))
+- For Models you can see [KidJig Models](https://kidjig.gitbook.io/kidjig-docs/api-overview/text-models-llm/models)
 
 ## Installation
 
@@ -19,8 +20,52 @@ pip install httpx
 ### Chat Completion
 The chat example demonstrates how to use KidJig's chat completion API:
 
+KidJig supports two methods for chat completion:
+1. Direct API Call
+
+```python
+
+url = "https://api.kidjig.com/provider/api/v1/{provider}/chat/completions"
+headers = {
+    "X-Api-Key": "your_api_key", #kidjig_api_key
+    "Content-Type": "application/json"
+}
+data = {
+    "model": "string",  # modelId or modelName
+    "prompt": "What is the capital of France?",
+    "stream": False,
+    "config": {
+        "temperature": 0.7,
+        "maxOutputTokens": 4096,
+        "topP": 1,
+        "topK": 40
+    }
+}
+response = httpx.post(url, headers=headers, json=data)
+print(response.json())
+```
+
+2. OpenAI Client
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.kidjig.com/provider/api/v1/{provider}",
+    api_key="your_api_key"
+)
+
+completion = client.chat.completions.create(
+    model="string",  # modelId or modelName
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+print(completion)
+```
+
+
 ```bash
 python src/kidjig_chat/chat.py
+python src/kidjig_chat/openai_client.py
  ```
 
 ### Image Generation
