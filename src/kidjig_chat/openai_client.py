@@ -14,3 +14,5 @@ completion = client.chat.completions.create(
     messages=[{"role": "user", "content": "Hello!"}],
 )
 print(completion)
+
+# provider and model can be found here: https://kidjig.gitbook.io/kidjig-docs/api-overview/text-models-llm/models
