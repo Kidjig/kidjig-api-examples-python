@@ -21,3 +21,6 @@ try:
 
 except Exception as e:
     print(f"An error occurred: {str(e)}")
+
+
+# provider and model can be found here: https://kidjig.gitbook.io/kidjig-docs/api-overview/text-models-llm/models
