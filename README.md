@@ -127,6 +127,46 @@ Before running the examples:
 ### Image Response
 The image endpoints return status updates and final image URLs when processing is complete.
 
+### Agent API Integration
+
+The KidJig Agent API allows you to create and manage AI agents for various tasks. The example demonstrates complete CRUD operations and chat functionality with agents.
+
+To use the Agent API examples:
+
+Run the script:
+```bash
+python src/agents/agent.py
+```
+
+Available Agent Operations:
+
+- Create a new agent with custom configurations
+- Retrieve all agents
+- Get specific agent details by ID
+- Update existing agent properties
+- Delete an agent
+- Chat with an agent
+
+## Base URL for Agent API
+```bash
+base_url = "https://api.kidjig.com/agents/api/v1"
+```
+
+## Agent API Endpoints
+- Create: POST /api/v1
+- Get All: GET /api/v1
+- Get by ID: GET /api/v1/{agentId}
+- Get Tools: GET /api/v1/tools
+- Update: PUT /api/v1/{agentId}
+- Delete: DELETE /api/v1/{agentId}
+- Chat: POST /api/v1/chat/{agentId}
+- Chat History by ID: GET /api/v1/chat-history/{agentId}
+- Clone Agents By ID: POST /api/v1/clone/{agentId}
+- Logs: GET /api/v1/logs
+- Logs by ID: GET /api/v1/logs/{agentId}
+
+
+
 ## Error Handling
 All examples include basic error handling for common issues like network errors or invalid responses.
 
