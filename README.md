@@ -93,6 +93,72 @@ python src/kidjig_image/image_status.py
 python src/kidjig_image/image_result.py
  ```
 
+### OCR (Optical Character Recognition)
+The OCR example demonstrates how to extract text from documents and images using KidJig's OCR API powered by Mistral AI.
+
+#### OCR Features
+- Extract text from PDF documents and images
+- Preserve document structure and formatting
+- Support for document URLs, image URLs, and direct file uploads
+- Returns results in markdown format
+
+#### OCR Integration
+
+KidJig offers three flexible methods for OCR processing:
+
+1. Process a document URL:
+```python
+import httpx
+
+base_url = "https://api.kidjig.com/provider/api/v1/mistralai/ocr/process"
+
+headers = {
+    "X-Api-Key": "your_api_key",  # Replace with your KidJig API key
+    "Content-Type": "application/json",
+}
+data = {
+    "model": "mistral-ocr-latest",
+    "documentUrl": "https://example.com/document.pdf",  # Replace with your document URL
+}
+
+response = httpx.post(base_url, headers=headers, json=data)
+print(response.json())
+```
+
+2. Process an image URL:
+```python
+data = {
+    "model": "mistral-ocr-latest",
+    "imageUrl": "https://example.com/image.jpg",  # Replace with your image URL
+}
+
+# Use the same httpx.post call as above with this data
+```
+
+3. Upload and process a file:
+```python
+import os
+
+headers = {
+    "X-Api-Key": "your_api_key",  # Replace with your KidJig API key
+}
+
+# Open the file in binary mode
+with open("path/to/your/document.pdf", "rb") as f:
+    files = {
+        "file": (os.path.basename("path/to/your/document.pdf"), f, "application/pdf"),
+        "model": (None, "mistral-ocr-latest"),
+    }
+    
+    response = httpx.post(base_url, headers=headers, files=files)
+    print(response.json())
+```
+
+To run the OCR example:
+```bash
+python src/ocr/ocr.py
+```
+
 ## Configuration
 Before running the examples:
 
