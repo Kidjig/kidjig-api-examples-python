@@ -1,10 +1,12 @@
-# KidJig API JavaScript Examples
+# KidJig API Python Examples
 
-This repository provides comprehensive JavaScript code examples and implementations for integrating with the KidJig API platform. It includes detailed examples for both the Chat Completion API and Image Generation API services, helping developers quickly get started with KidJig's powerful AI capabilities.
+This repository provides comprehensive Python code examples and implementations for integrating with the KidJig API platform. It includes detailed examples for Chat Completion API, Image Generation API, Text-to-Speech API, and OCR services, helping developers quickly get started with KidJig's powerful AI capabilities.
 
 Key Features:
 - Chat Completion API integration examples
 - Image Generation API implementation samples
+- Text-to-Speech API integration examples
+- OCR (Optical Character Recognition) implementation
 
 
 ## Prerequisites
@@ -93,6 +95,62 @@ python src/kidjig_image/image_status.py
 python src/kidjig_image/image_result.py
  ```
 
+### Text-to-Speech API Integration
+
+The KidJig Text-to-Speech API allows you to convert text to natural-sounding speech using various providers and models. The example demonstrates how to generate speech from text and download the resulting audio files.
+
+#### Text-to-Speech Features
+- Convert text to speech using multiple providers (ElevenLabs, Sarvam.ai, OpenAI Whisper)
+- Support for different voice models (aria, alloy, meera, etc.)
+- Customizable speech parameters (speed, format, language)
+- Option to download generated audio files
+
+#### Text-to-Speech Integration
+
+```python
+import httpx
+
+def generate_speech(provider, model_id, text, **kwargs):
+    """Generate speech using the KidJig TTS API."""
+    url = f"https://api.kidjig.com/provider/api/v1/tts/{provider}/{model_id}"
+
+    headers = {
+        "X-Api-Key": "your_api_key",  # Replace with your KidJig API key
+        "Content-Type": "application/json",
+    }
+
+    # Base request data
+    data = {"text": text}
+
+    # Add provider-specific parameters
+    if provider == "elevenlabs":
+        data.update({"speed": kwargs.get("speed", 1.0), "format": kwargs.get("format", "mp3")})
+    elif provider == "sarvam":
+        data.update({
+            "target_language_code": kwargs.get("target_language_code", "en-IN"),
+            "speed": kwargs.get("speed", 1.0),
+        })
+    elif provider == "whisper":
+        data.update({"speed": kwargs.get("speed", 1.0), "format": kwargs.get("format", "mp3")})
+
+    response = httpx.post(url, headers=headers, json=data)
+    response_data = response.json()
+
+    if response_data.get("success"):
+        return response_data["data"]["audioUrl"]
+    return None
+```
+
+To run the Text-to-Speech example:
+```bash
+python src/audio/text-to-speech/generateSpeech.py
+```
+
+You can also get available TTS models:
+```bash
+python src/audio/text-to-speech/getModels.py
+```
+
 ### OCR (Optical Character Recognition)
 The OCR example demonstrates how to extract text from documents and images using KidJig's OCR API powered by Mistral AI.
 
@@ -149,7 +207,7 @@ with open("path/to/your/document.pdf", "rb") as f:
         "file": (os.path.basename("path/to/your/document.pdf"), f, "application/pdf"),
         "model": (None, "mistral-ocr-latest"),
     }
-    
+
     response = httpx.post(base_url, headers=headers, files=files)
     print(response.json())
 ```
@@ -166,13 +224,24 @@ Before running the examples:
 2. For image status and result endpoints, replace "your_request_id" with the request ID received from the generation step
 
 ## API Endpoints
+
 ### Chat
 - Chat completion: POST /api/v1/{provider}/chat/{model}
+
 ### Image
 - Generate: POST /api/v1/image/generate/{modelid}
 - Status: GET /api/v1/image/status/{modelid}/{request_id}
 - Result: GET /api/v1/image/result/{modelid}/{request_id}
+
+### Text-to-Speech
+- Generate speech: POST /api/v1/tts/{provider}/{model_id}
+- Get available models: GET /api/v1/tts/{provider}/models
+
+### OCR
+- Process document: POST /api/v1/{provider}/ocr/process
+
 ## Response Examples
+
 ### Chat Response
 ```json
 {
