@@ -14,7 +14,7 @@ def generate_speech(provider, model_id, text, **kwargs):
     Returns:
         str: URL to the generated audio file, or None if an error occurred
     """
-    url = f"https://api.kidjig.com/provider/api/v1/tts/{provider}/{model_id}"
+    url = f"https://api.kidjig.com/provider/api/v1/tts/{provider}/generate"
 
     headers = {
         "X-Api-Key": "your_api_key",  # Replace with your KidJig API key
@@ -91,8 +91,8 @@ def download_audio(audio_url, output_file):
 
 # Example usage for ElevenLabs
 elevenlabs_audio_url = generate_speech(
-    provider="elevenlabs",
-    model_id="aria",
+    model="eleven_multilingual_v2",
+    voice="aria",
     text="Hello, this is a test of the ElevenLabs text to speech API.",
     speed=1.0,
     format="mp3",
@@ -102,8 +102,8 @@ elevenlabs_audio_url = generate_speech(
 
 # Example usage for Sarvam.ai
 sarvam_audio_url = generate_speech(
-    provider="sarvam",
-    model_id="meera",
+    model="sarvam",
+    voice="meera",
     text="Hello, this is a test of the Sarvam.ai text to speech API.",
     target_language_code="en-IN",
     speed=1.0,
@@ -113,8 +113,8 @@ sarvam_audio_url = generate_speech(
 
 # Example usage for OpenAI Whisper
 whisper_audio_url = generate_speech(
-    provider="whisper",
-    model_id="alloy",
+    model="eleven_multilingual_v2",
+    voice="aria",
     text="Hello, this is a test of the OpenAI Whisper text to speech API.",
     speed=1.0,
     format="mp3",
@@ -124,7 +124,7 @@ whisper_audio_url = generate_speech(
 
 # You can also use the function without downloading the audio
 audio_url = generate_speech(
-    provider="elevenlabs",
-    model_id="aria",
+    model="eleven_multilingual_v2",
+    voice="aria",
     text="This is another test without downloading the audio.",
 )
