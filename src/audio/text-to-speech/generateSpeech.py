@@ -1,13 +1,13 @@
 import httpx
 
 
-def generate_speech(provider, model_id, text, **kwargs):
+def generate_speech(provider, model, text, **kwargs):
     """
     Generate speech using the KidJig TTS API.
 
     Args:
         provider (str): The TTS provider to use (elevenlabs, whisper, sarvam)
-        model_id (str): The model ID to use (e.g., aria, alloy, meera)
+        model (str): The model ID to use (e.g., aria, alloy, meera)
         text (str): The text to convert to speech
         **kwargs: Additional provider-specific parameters
 
@@ -27,9 +27,7 @@ def generate_speech(provider, model_id, text, **kwargs):
     # Add provider-specific parameters
     if provider == "elevenlabs":
         # ElevenLabs specific parameters
-        data.update(
-            {"speed": kwargs.get("speed", 1.0), "format": kwargs.get("format", "mp3")}
-        )
+        data.update({"speed": kwargs.get("speed", 1.0), "format": kwargs.get("format", "mp3")})
     elif provider == "sarvam":
         # Sarvam.ai specific parameters
         data.update(
@@ -40,9 +38,7 @@ def generate_speech(provider, model_id, text, **kwargs):
         )
     elif provider == "whisper":
         # OpenAI Whisper specific parameters
-        data.update(
-            {"speed": kwargs.get("speed", 1.0), "format": kwargs.get("format", "mp3")}
-        )
+        data.update({"speed": kwargs.get("speed", 1.0), "format": kwargs.get("format", "mp3")})
 
     try:
         response = httpx.post(url, headers=headers, json=data)
@@ -55,9 +51,7 @@ def generate_speech(provider, model_id, text, **kwargs):
 
             # Optional: Download the audio file
             if kwargs.get("download", False):
-                output_file = kwargs.get(
-                    "output_file", f"{provider}_{model_id}_output.mp3"
-                )
+                output_file = kwargs.get("output_file", f"{provider}_{model}_output.mp3")
                 download_audio(audio_url, output_file)
 
             return audio_url
@@ -91,6 +85,7 @@ def download_audio(audio_url, output_file):
 
 # Example usage for ElevenLabs
 elevenlabs_audio_url = generate_speech(
+    provider="elevenlabs",
     model="eleven_multilingual_v2",
     voice="aria",
     text="Hello, this is a test of the ElevenLabs text to speech API.",
@@ -102,8 +97,9 @@ elevenlabs_audio_url = generate_speech(
 
 # Example usage for Sarvam.ai
 sarvam_audio_url = generate_speech(
-    model="sarvam",
-    voice="meera",
+    provider="sarvam",
+    model="bulbul:v2",
+    voice="abhilash",
     text="Hello, this is a test of the Sarvam.ai text to speech API.",
     target_language_code="en-IN",
     speed=1.0,
@@ -113,8 +109,9 @@ sarvam_audio_url = generate_speech(
 
 # Example usage for OpenAI Whisper
 whisper_audio_url = generate_speech(
-    model="eleven_multilingual_v2",
-    voice="aria",
+    provider="whisper",
+    model="tts-1",
+    voice="alloy",
     text="Hello, this is a test of the OpenAI Whisper text to speech API.",
     speed=1.0,
     format="mp3",
